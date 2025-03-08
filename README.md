@@ -19,16 +19,20 @@
 
 
 ### ✨ Description & Features
-A terminal-based implementation of the classic Snake game. A snake moves on the board to eat fruits and grows in length.
+A terminal-based implementation of the classic Tetris game. The falling tetromino pieces must be arranged such that no cell remains empty!
+
 It has the following features:
-- **Obstacle System**: Randomly generated barriers, if user wants them.
-- **Colored Fruits**: 
-  - 🔴 Red: +10 pts, increases speed
-  - 🟢 Green: +5 pts, decreases speed
-- **Adaptive Difficulty**: Speed increases with score
-- **Player Stats**: Name, score, time, and max score tracking
-- **Pause/Restart** functionality
-- **Directions/Movements** move the snake with the keys w/s/a/d
+- **🎮 Classic Tetris Gameplay**: Rotate, move, and drop blocks to complete lines and score points.
+- **🚀 Adaptive Difficulty**: Speed increases as your score grows, making the game progressively challenging.
+- **📊 Scoring System**: Earn points based on the number of lines cleared at once:
+  - **1 Line**: +100 points
+  - **2 Lines**: +300 points
+  - **3 Lines**: +500 points
+  - **4 Lines (Tetris!)**: +800 points
+- **🎨 Customizable Controls**: Move and rotate blocks using configurable keys.
+- **⏸ Pause/Resume**: Take a break whenever needed.
+- **🔄 Restart Option**: Restart the game after a game over without closing the terminal.
+
 
 
 ### 🕹️ Usage
@@ -37,25 +41,29 @@ It has the following features:
   - Install the required compiler (if not installed):
     <pre>sudo apt install g++</pre>
   - Compile and Run the Game:
-    <pre>theSnakeGame.cpp -o theSnakeGame
-    ./theSnakeGame</pre>
+    <pre>tetris.cpp -o play
+    ./play</pre>
+   **OR**
+    <pre>tetrisX2.cpp -o play
+    ./play</play>
 
 #### How to Play
-- The game starts with a snake of length 3 (--O).
-- Use WASD keys to control the snake's movement.
-- Eat fruits (F) to grow and score points.
-- Avoid walls, obstacles, and self-collisions, or the game ends.
-- The game speeds up when you eat red fruits and slows down when you eat green fruits.
-- Pause anytime using the "P" key and restart using the "R" key.
-- The game continuously generates fruits until you lose.
+- **⬅ Left**: `A`
+- **➡ Right**: `D`
+- **⬆ Rotate**: `W`
+- **⬇ Soft Drop**: `S`
+- **⏬ Hard Drop**: `Space`
+- **⏸ Pause**: `P`
+- **🔄 Restart**: `R`
 
 
 ### 🤝 Contributors
 The game was built and improved with contributions from:
 
-*Aarohi & Alvita*: Implemented the snake movement and logic.<br/>
-*Darshan & Dharmesh*: Implemented the fruit spawning and game board logic.<br/>
-**All** worked on gameplay updates and optimization.
+*Aarohi & Alvita*: Implemented the tetris pieces and gameboard.<br/>
+*Darshan & Dharmesh*: Implemented the piece-falling and scoring logic.<br/>
+**All** worked on gameplay updates, optimization and multiplayer.
+
 
 ### 📜 License
 This project is not licensed. All rights reserved.
@@ -66,7 +74,7 @@ The game's design was inspired by the youtube tutorials:
 - [Snake Game by Ertjan Arapi](https://youtu.be/gWq0tJLsjRs?si=GyGW5fCuE8hOVNki)
 - [Snake Game by NVitanovic](https://www.youtube.com/watch?v=E_-lMZDi7Uw)
 
-Thanks to ChatGPT & DeepSeek for providing helpful recommedations, resources and tips for making the basic idea of the snake game.
+Thanks to ChatGPT & DeepSeek for providing helpful recommedations, resources and tips for making the basic idea of the game.
 
 
 ### 😉 Group Icon
