@@ -19,7 +19,7 @@
 
 
 ### ✨ Description & Features
-A terminal-based implementation of the classic Tetris game. The falling tetromino pieces must be arranged such that no cell remains empty!
+A terminal-based implementation of the classic Tetris game. The falling tetromino pieces must be arranged such that no cell in a row remains empty!
 
 It has the following features:
 - **🎮 Classic Tetris Gameplay**: Rotate, move, and drop blocks to complete lines and score points.
@@ -45,7 +45,7 @@ It has the following features:
     ./play</pre>
    **OR**
     <pre>tetrisX2.cpp -o play
-    ./play</play>
+    ./play</pre>
 
 #### How to Play
 - **⬅ Left**: `A`
