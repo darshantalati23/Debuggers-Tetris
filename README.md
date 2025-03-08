@@ -44,7 +44,7 @@ It has the following features:
     <pre>tetris.cpp -o play
     ./play</pre>
    **OR**
-    <pre>tetrisX2.cpp -o play
+  - <pre>tetrisX2.cpp -o play
     ./play</pre>
 
 #### How to Play
