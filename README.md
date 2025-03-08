@@ -43,8 +43,8 @@ It has the following features:
   - Compile and Run the Game:
     <pre>tetris.cpp -o play
     ./play</pre>
-   **OR**
-  - <pre>tetrisX2.cpp -o play
+    **OR**
+    <pre>tetrisX2.cpp -o play
     ./play</pre>
 
 #### How to Play
