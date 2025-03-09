@@ -40,21 +40,29 @@ It has the following features:
 #### Installation & Running (Ubuntu)
   - Install the required compiler (if not installed):
     <pre>sudo apt install g++</pre>
+  - Install "SoX" (Sound eXchange) software (if not installed)
+    <pre>sudo apt install sox</pre>
   - Compile and Run the Game:
+    *Single Player*
     <pre>tetris.cpp -o play
     ./play</pre>
     **OR**
+    *1 v/s 1 (Multiplayer)*
     <pre>tetrisX2.cpp -o play
     ./play</pre>
 
 #### How to Play
-- **⬅ Left**: `A`
-- **➡ Right**: `D`
-- **⬆ Rotate**: `W`
-- **⬇ Soft Drop**: `S`
-- **⏬ Hard Drop**: `Space`
-- **⏸ Pause**: `P`
-- **🔄 Restart**: `R`
+
+| Action        | Player 1| Player 2  |
+|---------------|---------|-----------|
+| **Move Left** | `A`     | `⬅ Left`  |
+| **Move Right**| `D`     | `➡ Right` |
+| **Rotate**    | `W`     | `⬆ Up`    |
+| **Soft Drop** | `S`     | `⬇ Down`  |
+| **Hard Drop** | `Space` | `Enter`   |
+| **Pause**     | `P`     | `P`       |
+| **Restart**   | `R`     | `R`       |
+
 
 
 ### 🤝 Contributors
