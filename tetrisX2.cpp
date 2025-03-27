@@ -434,7 +434,7 @@ public:
             std::string inp = getInput();
             if (!inp.empty()) handleInput(inp);
             update();
-            usleep(200000 / ((player1.level + player2.level)/2 + 1));
+            usleep(300000 / ((player1.level + player2.level)/2 + 1));
         }
         std::system("clear");
         std::cout << "GAME OVER!\n";
