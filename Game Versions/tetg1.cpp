@@ -220,7 +220,7 @@ public:
             draw();
             handleInput();
             update();
-            usleep(1000000 / level); // Adjust speed based on level
+            usleep(1500000 / level); // Adjust speed based on level
         }
         std::cout << "Game Over! Score: " << score << std::endl;
     }
