@@ -88,6 +88,10 @@ Thanks to ChatGPT & DeepSeek for providing helpful recommedations, resources and
 <img src="GroupIcon.jpg" width="350px">
 
 
-### ScreenPlay
-<img src="singleplayer.png" height="750px">
-<img src="multiplayer.png" height="750px">
+### 💻 ScreenPlay
+
+Single Player:
+<img src="singleplayer.png" height="650px">
+
+Multi Player:
+<img src="multiplayer.png" height="650px">
