@@ -30,7 +30,7 @@ enum class TetrominoType { I, O, T, S, Z, J, L };
 #define ANSI_COLOR_WHITE   "\x1b[37m"
 #define ANSI_COLOR_GHOST   "\x1b[37;2m"
 
-// Tetromino Class [unchanged]
+// Tetromino Class (unchanged)
 class Tetromino {
 private:
     TetrominoType type;
@@ -142,7 +142,7 @@ public:
     const vector<vector<string>>& getGrid() const { return grid; }
 };
 
-// ----- Player Class -----
+// Player Class
 // Encapsulates a single player's board, current tetromino, score, etc.
 class Player {
 private:
@@ -329,7 +329,7 @@ public:
     }
 };
 
-// ----- Input Handling -----
+// Input Handling
 // Nonblocking input read that returns a string containing the latest key sequence.
 string getInput() {
     string input = "";
@@ -349,7 +349,7 @@ string getInput() {
     return input;
 }
 
-// ----- MultiplayerGame Class -----
+// MultiplayerGame Class
 class MultiplayerGame {
 private:
     Player player1;
