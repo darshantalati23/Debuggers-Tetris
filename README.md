@@ -89,5 +89,5 @@ Thanks to ChatGPT & DeepSeek for providing helpful recommedations, resources and
 
 
 ### ScreenPlay
-<img src="singleplayer.png" width="500px">
-<img src="multiplayer.png" width="500px">
+<img src="singleplayer.png" height="750px">
+<img src="multiplayer.png" height="750px">
