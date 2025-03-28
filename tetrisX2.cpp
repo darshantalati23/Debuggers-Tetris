@@ -8,6 +8,7 @@
 #include <string>
 #include <cctype>
 #include <sstream>
+using namespace std;
 
 #define WIDTH 10
 #define HEIGHT 22
@@ -29,14 +30,14 @@ enum class TetrominoType { I, O, T, S, Z, J, L };
 #define ANSI_COLOR_WHITE   "\x1b[37m"
 #define ANSI_COLOR_GHOST   "\x1b[37;2m"
 
-// ----- Tetromino Class (unchanged) -----
+// Tetromino Class [unchanged]
 class Tetromino {
 private:
     TetrominoType type;
     int rotation;
     int x, y;
-    std::vector<std::vector<int>> shape;
-    std::string color;
+    vector<vector<int>> shape;
+    string color;
 
     void initShape() {
         switch(type) {
@@ -69,28 +70,28 @@ public:
 
     void rotate() {
         rotation = (rotation + 1) % 4;
-        std::vector<std::vector<int>> newShape(shape[0].size(), std::vector<int>(shape.size()));
+        vector<vector<int>> newShape(shape[0].size(), vector<int>(shape.size()));
         for (size_t i = 0; i < shape.size(); ++i)
             for (size_t j = 0; j < shape[0].size(); ++j)
                 newShape[j][shape.size()-1-i] = shape[i][j];
         shape = newShape;
     }
 
-    const std::vector<std::vector<int>>& getShape() const { return shape; }
+    const vector<vector<int>>& getShape() const { return shape; }
     int getX() const { return x; }
     int getY() const { return y; }
-    std::string getColor() const { return color; }
+    string getColor() const { return color; }
     void move(int dx, int dy) { x += dx; y += dy; }
     Tetromino* clone() const { return new Tetromino(*this); }
     void setPosition(int newX, int newY) { x = newX; y = newY; }
 };
 
-// ----- Grid Class (unchanged) -----
+// Grid Class (unchanged)
 class Grid {
 private:
-    std::vector<std::vector<std::string>> grid;
+    vector<vector<string>> grid;
 public:
-    Grid() : grid(HEIGHT, std::vector<std::string>(WIDTH, "")) {}
+    Grid() : grid(HEIGHT, vector<string>(WIDTH, "")) {}
 
     bool isCollision(const Tetromino& t) const {
         for (size_t i = 0; i < t.getShape().size(); ++i) {
@@ -129,7 +130,7 @@ public:
                 if (grid[y][x] == "") { full = false; break; }
             if (full) {
                 grid.erase(grid.begin() + y);
-                grid.insert(grid.begin(), std::vector<std::string>(WIDTH, ""));
+                grid.insert(grid.begin(), vector<string>(WIDTH, ""));
                 lines++;
                 y++; // check same row index again
             }
@@ -138,7 +139,7 @@ public:
         return lines;
     }
 
-    const std::vector<std::vector<std::string>>& getGrid() const { return grid; }
+    const vector<vector<string>>& getGrid() const { return grid; }
 };
 
 // ----- Player Class -----
@@ -147,7 +148,7 @@ class Player {
 private:
     Grid grid;
     Tetromino* current;
-    std::string colorForGhost = ANSI_COLOR_GHOST;
+    string colorForGhost = ANSI_COLOR_GHOST;
     bool gameOverSoundPlayed = false; // ensure we play the game-over sound once
 
     // Returns a new random tetromino.
@@ -158,7 +159,7 @@ private:
     }
 
     // Draw ghost piece for current tetromino.
-    void drawGhost(std::vector<std::vector<std::string>>& tempGrid) const {
+    void drawGhost(vector<vector<string>>& tempGrid) const {
         Tetromino* ghost = current->clone();
         while (!grid.isCollision(*ghost))
             ghost->move(0, 1);
@@ -177,21 +178,21 @@ private:
     }
 
 public:
-    std::string name;
+    string name;
     int score;
     int level;
     bool gameOver;
     bool paused;
     int playerId; // 1 or 2
 
-    Player(int id, const std::string& n) : name(n), score(0), level(1),
+    Player(int id, const string& n) : name(n), score(0), level(1),
         gameOver(false), paused(false), playerId(id) { current = newPiece(); }
 
     ~Player() { delete current; }
 
     // Process input command for this player.
     // cmd: "L", "R", "rotate", "soft", "hard", "pause", "quit"
-    void processCommand(const std::string& cmd) {
+    void processCommand(const string& cmd) {
         if (paused) {
             if (cmd == "pause")
                 paused = false;
@@ -251,11 +252,11 @@ public:
     }
 
     // Render the player's board (including header) into a vector of strings.
-    std::vector<std::string> render() const {
-        std::vector<std::string> lines;
-        std::stringstream ss;
+    vector<string> render() const {
+        vector<string> lines;
+        stringstream ss;
         // Prepare temporary grid including ghost and current piece.
-        std::vector<std::vector<std::string>> tempGrid = grid.getGrid();
+        vector<vector<string>> tempGrid = grid.getGrid();
         // Draw ghost piece
         {
             Tetromino* ghost = current->clone();
@@ -287,9 +288,9 @@ public:
                         tempGrid[y][x] = current->getColor();
                 }
         // Build header line.
-        std::string header = name + "  Score: " + std::to_string(score) + "  Level: " + std::to_string(level);
+        string header = name + "  Score: " + to_string(score) + "  Level: " + to_string(level);
         int headerPad = (WIDTH*2 + 4 - header.length())/2;
-        ss << std::string(headerPad > 0 ? headerPad : 0, ' ') << header;
+        ss << string(headerPad > 0 ? headerPad : 0, ' ') << header;
         lines.push_back(ss.str());
         ss.str("");
         // Build top border.
@@ -330,8 +331,8 @@ public:
 
 // ----- Input Handling -----
 // Nonblocking input read that returns a string containing the latest key sequence.
-std::string getInput() {
-    std::string input = "";
+string getInput() {
+    string input = "";
     struct termios oldt, newt;
     tcgetattr(STDIN_FILENO, &oldt);
     newt = oldt;
@@ -355,7 +356,7 @@ private:
     Player player2;
     bool globalQuit;
 public:
-    MultiplayerGame(const std::string& name1, const std::string& name2)
+    MultiplayerGame(const string& name1, const string& name2)
         : player1(1, name1), player2(2, name2), globalQuit(false) {
         srand(time(0));
     }
@@ -363,7 +364,7 @@ public:
     // Dispatch input characters to the appropriate player commands.
     // For player1: keys: a (L), d (R), w (rotate), s (soft), space (hard)
     // For player2: arrow keys and Enter: ESC+[+ 'D' (L), ESC+[+'C' (R), ESC+[+'A' (rotate), ESC+[+'B' (soft), Enter (hard))
-    void handleInput(const std::string& input) {
+    void handleInput(const string& input) {
         size_t i = 0;
         while (i < input.size()) {
             char ch = input[i];
@@ -404,17 +405,17 @@ public:
 
     // Draw both players side-by-side by combining their rendered lines.
     void draw() {
-        std::system("clear");
-        std::vector<std::string> board1 = player1.render();
-        std::vector<std::string> board2 = player2.render();
-        size_t maxLines = std::max(board1.size(), board2.size());
+        system("clear");
+        vector<string> board1 = player1.render();
+        vector<string> board2 = player2.render();
+        size_t maxLines = max(board1.size(), board2.size());
         for (size_t i = 0; i < maxLines; i++) {
-            std::string line1 = (i < board1.size()) ? board1[i] : "";
-            std::string line2 = (i < board2.size()) ? board2[i] : "";
+            string line1 = (i < board1.size()) ? board1[i] : "";
+            string line2 = (i < board2.size()) ? board2[i] : "";
             // Adjust spacing between the two boards.
-            std::cout << line1 << "    " << line2 << "\n";
+            cout << line1 << "    " << line2 << "\n";
         }
-        std::cout << "\nPress 'q' or ESC to quit.\n";
+        cout << "\nPress 'q' or ESC to quit.\n";
     }
 
     // Update both players.
@@ -431,27 +432,27 @@ public:
     void run() {
         while (!isGameOver()) {
             draw();
-            std::string inp = getInput();
+            string inp = getInput();
             if (!inp.empty()) handleInput(inp);
             update();
             usleep(300000 / ((player1.level + player2.level)/2 + 1));
         }
-        std::system("clear");
-        std::cout << "GAME OVER!\n";
-        std::cout << player1.name << " Score: " << player1.score << "\n";
-        std::cout << player2.name << " Score: " << player2.score << "\n";
+        system("clear");
+        cout << "GAME OVER!\n";
+        cout << player1.name << " Score: " << player1.score << "\n";
+        cout << player2.name << " Score: " << player2.score << "\n";
         // If any game over sound hasn't been played (should not occur, but for safety)
         system("aplay -q pop2.wav &");
     }
 };
 
 int main() {
-    std::string name1, name2;
-    std::cout << "Enter Player 1 name (WASD & Spacebar): ";
-    std::getline(std::cin, name1);
-    std::cout << "Enter Player 2 name (Arrow Keys & Enter): ";
-    std::getline(std::cin, name2);
-    std::cout << "\nHOW TO PLAY:\n"
+    string name1, name2;
+    cout << "Enter Player 1 name (WASD & Spacebar): ";
+    getline(cin, name1);
+    cout << "Enter Player 2 name (Arrow Keys & Enter): ";
+    getline(cin, name2);
+    cout << "\nHOW TO PLAY:\n"
               << "Player 1: A - Left, D - Right, W - Rotate, S - Soft Drop, Space - Hard Drop\n"
               << "Player 2: Arrow Left/Right - Move, Arrow Up - Rotate, Arrow Down - Soft Drop, Enter - Hard Drop\n"
               << "P - Pause, Q/ESC - Quit\n\n"
