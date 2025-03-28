@@ -91,7 +91,9 @@ Thanks to ChatGPT & DeepSeek for providing helpful recommedations, resources and
 ### 💻 ScreenPlay
 
 Single Player:
+
 <img src="singleplayer.png" height="650px">
 
 Multi Player:
+
 <img src="multiplayer.png" height="650px">
