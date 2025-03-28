@@ -6,6 +6,7 @@
 #include <termios.h>
 #include <fcntl.h>
 #include <string>
+using namespace std;
 
 #define WIDTH 10
 #define HEIGHT 22
@@ -32,8 +33,8 @@ private:
     TetrominoType type;
     int rotation;
     int x, y;
-    std::vector<std::vector<int>> shape;
-    std::string color;
+    vector<vector<int>> shape;
+    string color;
 
     void initShape() {
         switch(type) {
@@ -66,27 +67,27 @@ public:
 
     void rotate() {
         rotation = (rotation + 1) % 4;
-        std::vector<std::vector<int>> newShape(shape[0].size(), std::vector<int>(shape.size()));
+        vector<vector<int>> newShape(shape[0].size(), vector<int>(shape.size()));
         for (size_t i = 0; i < shape.size(); ++i)
             for (size_t j = 0; j < shape[0].size(); ++j)
                 newShape[j][shape.size()-1-i] = shape[i][j];
         shape = newShape;
     }
 
-    const std::vector<std::vector<int>>& getShape() const { return shape; }
+    const vector<vector<int>>& getShape() const { return shape; }
     int getX() const { return x; }
     int getY() const { return y; }
-    std::string getColor() const { return color; }
+    string getColor() const { return color; }
     void move(int dx, int dy) { x += dx; y += dy; }
     Tetromino* clone() const { return new Tetromino(*this); }
 };
 
 class Grid {
 private:
-    std::vector<std::vector<std::string>> grid;
+    vector<vector<string>> grid;
 
 public:
-    Grid() : grid(HEIGHT, std::vector<std::string>(WIDTH, "")) {}
+    Grid() : grid(HEIGHT, vector<string>(WIDTH, "")) {}
 
     bool isCollision(const Tetromino& t) const {
         for (size_t i = 0; i < t.getShape().size(); ++i) {
@@ -123,7 +124,7 @@ public:
 
             if (full) {
                 grid.erase(grid.begin() + y);
-                grid.insert(grid.begin(), std::vector<std::string>(WIDTH, ""));
+                grid.insert(grid.begin(), vector<string>(WIDTH, ""));
                 lines++;
                 y++;
             }
@@ -132,7 +133,7 @@ public:
         return lines;
     }
 
-    const std::vector<std::vector<std::string>>& getGrid() const { return grid; }
+    const vector<vector<string>>& getGrid() const { return grid; }
 };
 
 class Game {
@@ -143,10 +144,10 @@ private:
     int level;
     bool gameOver;
     bool paused;
-    std::string playerName;
+    string playerName;
 
     void printInstructions() const {
-        std::cout << "HOW TO PLAY:\n"
+        cout << "HOW TO PLAY:\n"
                   << "A - Move Left\n"
                   << "D - Move Right\n"
                   << "W - Rotate\n"
@@ -162,7 +163,7 @@ private:
         return new Tetromino(types[rand() % 7]);
     }
 
-    void drawGhost(Tetromino* ghost, std::vector<std::vector<std::string>>& tempGrid) const {
+    void drawGhost(Tetromino* ghost, vector<vector<string>>& tempGrid) const {
         while (!grid.isCollision(*ghost)) ghost->move(0, 1);
         ghost->move(0, -1);
         
@@ -180,16 +181,16 @@ private:
     }
 
     void draw() const {
-        std::system("clear");
-        std::cout << ANSI_COLOR_RESET;
-        std::cout << "Player: " << playerName << "\n";
+        system("clear");
+        cout << ANSI_COLOR_RESET;
+        cout << "Player: " << playerName << "\n";
         
         // Center aligned score
-        std::string scoreLine = "Score: " + std::to_string(score) + "  Level: " + std::to_string(level);
+        string scoreLine = "Score: " + to_string(score) + "  Level: " + to_string(level);
         int padding = ((WIDTH*2 + 4) - scoreLine.length()) / 2;
-        std::cout << std::string(padding > 0 ? padding : 0, ' ') << scoreLine << "\n\n";
+        cout << string(padding > 0 ? padding : 0, ' ') << scoreLine << "\n\n";
 
-        std::vector<std::vector<std::string>> tempGrid = grid.getGrid();
+        vector<vector<string>> tempGrid = grid.getGrid();
         
         // Draw ghost piece
         Tetromino* ghost = current->clone();
@@ -213,32 +214,32 @@ private:
         }
 
         // Draw game board
-        std::cout << ANSI_COLOR_WHITE << BLOCK << ANSI_COLOR_RESET;
-        for (int x = 0; x < WIDTH; x++) std::cout << BLOCK;
-        std::cout << ANSI_COLOR_WHITE << BLOCK << ANSI_COLOR_RESET << std::endl;
+        cout << ANSI_COLOR_WHITE << BLOCK << ANSI_COLOR_RESET;
+        for (int x = 0; x < WIDTH; x++) cout << BLOCK;
+        cout << ANSI_COLOR_WHITE << BLOCK << ANSI_COLOR_RESET << endl;
 
         for (int y = 0; y < HEIGHT; ++y) {
-            std::cout << ANSI_COLOR_WHITE << BLOCK << ANSI_COLOR_RESET;
+            cout << ANSI_COLOR_WHITE << BLOCK << ANSI_COLOR_RESET;
             for (int x = 0; x < WIDTH; ++x) {
                 if (tempGrid[y][x] != "") {
                     if (tempGrid[y][x] == ANSI_COLOR_GHOST) {
-                        std::cout << ANSI_COLOR_GHOST << GHOST << ANSI_COLOR_RESET;
+                        cout << ANSI_COLOR_GHOST << GHOST << ANSI_COLOR_RESET;
                     } else {
-                        std::cout << tempGrid[y][x] << BLOCK << ANSI_COLOR_RESET;
+                        cout << tempGrid[y][x] << BLOCK << ANSI_COLOR_RESET;
                     }
                 } else {
-                    std::cout << EMPTY;
+                    cout << EMPTY;
                 }
             }
-            std::cout << ANSI_COLOR_WHITE << BLOCK << ANSI_COLOR_RESET << std::endl;
+            cout << ANSI_COLOR_WHITE << BLOCK << ANSI_COLOR_RESET << endl;
         }
 
-        std::cout << ANSI_COLOR_WHITE << BLOCK << ANSI_COLOR_RESET;
-        for (int x = 0; x < WIDTH; x++) std::cout << BLOCK;
-        std::cout << ANSI_COLOR_WHITE << BLOCK << ANSI_COLOR_RESET << std::endl;
+        cout << ANSI_COLOR_WHITE << BLOCK << ANSI_COLOR_RESET;
+        for (int x = 0; x < WIDTH; x++) cout << BLOCK;
+        cout << ANSI_COLOR_WHITE << BLOCK << ANSI_COLOR_RESET << endl;
 
         if (paused) {
-            std::cout << "\nPAUSED\n";
+            cout << "\nPAUSED\n";
             printInstructions();
         }
     }
@@ -266,10 +267,10 @@ private:
 public:
     Game() : score(0), level(1), gameOver(false), paused(false) {
         srand(time(0));
-        std::cout << "Enter player name: ";
-        std::getline(std::cin, playerName);
+        cout << "Enter player name: ";
+        getline(cin, playerName);
         printInstructions();
-        std::cout << "Press any key to start...";
+        cout << "Press any key to start...";
         getchar();
         current = newPiece();
     }
@@ -328,8 +329,8 @@ public:
             update();
             usleep(200000 / level); // Smoother gameplay
         }
-        std::system("clear");
-        std::cout << "GAME OVER! Final Score: " << score << "\n";
+        system("clear");
+        cout << "GAME OVER! Final Score: " << score << "\n";
         system("aplay -q pop2.wav &");
     }
 };
